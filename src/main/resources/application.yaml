@@ -1,0 +1,24 @@
+#内置Tomcat服务器
+server:
+  port: 8888
+  tomcat:
+    max-swallow-size: 5120MB #Tomcat允许的最大尺寸 5G
+    uri-encoding: UTF-8
+  servlet:
+    encoding:
+      charset: UTF-8
+
+spring:
+  #模板引擎thymeleaf
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
