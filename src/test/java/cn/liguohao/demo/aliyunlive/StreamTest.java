@@ -73,7 +73,10 @@ public class StreamTest {
     public void generatePushAndPullStreamUrlTest(){
         Stream stream = generatePushAndPullStreamUrl("test4Stream90903");
         System.out.println(stream.getPushStreamUrl());
-        System.out.println(stream.getPullStreamUrl());
+        System.out.println(stream.getPullStreamUrlRTMP());
+        System.out.println(stream.getPullStreamUrlFLV());
+        System.out.println(stream.getPullStreamUrlM3U8());
+        System.out.println(stream.getPullStreamUrlUDP());
     }
 
     /**
@@ -98,14 +101,26 @@ public class StreamTest {
         String pushAuthKey = authKeyPrefix+"-"+pushMd5Hash;
         String pullAuthKey = authKeyPrefix+"-"+pullMd5Hash;
 
-        //带有鉴权的推流URL格式：`rtmp://DomainName/AppName/StreamName?auth_key=timestamp-rand-uid-md5hash`
-        String pushStreamUrl = configPro.getProperty("pushProtocol") + "://" + configPro.getProperty("pushDomainName")
+        //推流地址拼接规则 推流域名+AppName（应用）+StreamName（直播流）+鉴权串
+        //rtmp://DomainName/AppName/StreamName?auth_key=timestamp-rand-uid-md5hash
+        String pushStreamUrl = "rtmp://" + configPro.getProperty("pushDomainName")
                 + relativeURI +"?auth_key="+pushAuthKey;
-        String pullStreamUrl = configPro.getProperty("pullProtocol") + "://" + configPro.getProperty("domainName")
+        //播流地址拼接规则 播流域名+AppName（应用）+StreamName（直播流）+鉴权串
+        // 构建不同格式播流地址
+        String pullStreamUrlRTMP = "rtmp://" + configPro.getProperty("domainName")
                 + relativeURI +"?auth_key="+pullAuthKey;
+        String pullStreamUrlFLV = "http://" + configPro.getProperty("domainName")
+                + relativeURI + ".flv?auth_key="+pullAuthKey;
+        String pullStreamUrlM3U8 = "http://" + configPro.getProperty("domainName")
+                + relativeURI + ".m3u8?auth_key="+pullAuthKey;
+        String pullStreamUrlUDP = "artc://" + configPro.getProperty("domainName")
+                + relativeURI + "?auth_key="+pullAuthKey;
 
         stream.setPushStreamUrl(pushStreamUrl);
-        stream.setPullStreamUrl(pullStreamUrl);
+        stream.setPullStreamUrlRTMP(pullStreamUrlRTMP);
+        stream.setPullStreamUrlFLV(pullStreamUrlFLV);
+        stream.setPullStreamUrlM3U8(pullStreamUrlM3U8);
+        stream.setPullStreamUrlUDP(pullStreamUrlUDP);
         return stream;
     }
 
@@ -125,8 +140,32 @@ public class StreamTest {
      * 流信息
      */
     class Stream {
+        /**
+         * 推流地址
+         * rtmp://push.aliyunlive.com/live/0000?auth_key={鉴权串}
+         */
         private String pushStreamUrl;
-        private String pullStreamUrl;
+        /**
+         * RTMP格式播流地址
+         * rtmp://pull.aliyunlive.com/live/0000?auth_key={鉴权串}
+         */
+        private String pullStreamUrlRTMP;
+        /**
+         * FLV格式播流地址
+         * http://pull.aliyunlive.com/live/0000.flv?auth_key={鉴权串}
+         */
+        private String pullStreamUrlFLV;
+        /**
+         * M3U8格式播流地址
+         * http://pull.aliyunlive.com/live/0000.m3u8?auth_key={鉴权串}
+         */
+        private String pullStreamUrlM3U8;
+        /**
+         * UDP格式播流地址
+         * artc://pull.aliyunlive.com/live/0000?auth_key={鉴权串}
+         */
+        private String pullStreamUrlUDP;
+
 
         public String getPushStreamUrl() {
             return pushStreamUrl;
@@ -136,20 +175,36 @@ public class StreamTest {
             this.pushStreamUrl = pushStreamUrl;
         }
 
-        public String getPullStreamUrl() {
-            return pullStreamUrl;
+        public String getPullStreamUrlRTMP() {
+            return pullStreamUrlRTMP;
         }
 
-        public void setPullStreamUrl(String pullStreamUrl) {
-            this.pullStreamUrl = pullStreamUrl;
+        public void setPullStreamUrlRTMP(String pullStreamUrlRTMP) {
+            this.pullStreamUrlRTMP = pullStreamUrlRTMP;
         }
 
-        @Override
-        public String toString() {
-            return "Stream{" +
-                    "pushStreamUrl='" + pushStreamUrl + '\'' +
-                    ", pullStreamUrl='" + pullStreamUrl + '\'' +
-                    '}';
+        public String getPullStreamUrlFLV() {
+            return pullStreamUrlFLV;
+        }
+
+        public void setPullStreamUrlFLV(String pullStreamUrlFLV) {
+            this.pullStreamUrlFLV = pullStreamUrlFLV;
+        }
+
+        public String getPullStreamUrlM3U8() {
+            return pullStreamUrlM3U8;
+        }
+
+        public void setPullStreamUrlM3U8(String pullStreamUrlM3U8) {
+            this.pullStreamUrlM3U8 = pullStreamUrlM3U8;
+        }
+
+        public String getPullStreamUrlUDP() {
+            return pullStreamUrlUDP;
+        }
+
+        public void setPullStreamUrlUDP(String pullStreamUrlUDP) {
+            this.pullStreamUrlUDP = pullStreamUrlUDP;
         }
     }
 
