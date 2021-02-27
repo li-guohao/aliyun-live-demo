@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2021/2/25
  */
 @SpringBootApplication
-public class TemplateApplication {
+public class LiveApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TemplateApplication.class,args);
+        SpringApplication.run(LiveApplication.class,args);
     }
 }
