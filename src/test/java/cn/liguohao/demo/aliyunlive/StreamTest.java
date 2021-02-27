@@ -39,7 +39,7 @@ public class StreamTest {
     }
 
     @Test
-    public void generatePushAndPullStreamUrl(){
+    public void generatePushAndPullStreamUrlCoarse(){
         String streamName = "streamName=00001";
         long timestamp = System.currentTimeMillis();
 
@@ -47,7 +47,7 @@ public class StreamTest {
         String pushMdhHash = "/"+configPro.getProperty("appName")+"/"+streamName+"-"+timestamp
                 +"-"+configPro.getProperty("rand")+"-"+configPro.getProperty("uid")+"-"+configPro.getProperty("pushPrivateKey");
         pushMdhHash = toMD5(pushMdhHash);
-        //带有鉴权的推流URL格式：`rtmp://DomainName/AppName/StreamName?auth_key=timestamp-rand-uid-md5hash`
+        //带有鉴权的推流URL格式：`rtmp://DomainName/AppName/StreamName?auth_key=timestamp-rand-uid-md5hash
         String pushAuthKey = timestamp +"-"+ configPro.getProperty("rand") +"-"+ configPro.getProperty("uid")
                 +"-"+pushMdhHash;
         String pushStreamUrl = configPro.getProperty("pushProtocol") + "://" + configPro.getProperty("pushDomainName")
@@ -69,6 +69,48 @@ public class StreamTest {
 
     }
 
+    @Test
+    public void generatePushAndPullStreamUrlTest(){
+        Stream stream = generatePushAndPullStreamUrl("test4Stream90903");
+        System.out.println(stream.getPushStreamUrl());
+        System.out.println(stream.getPullStreamUrl());
+    }
+
+    /**
+     * 生成推拉流URL
+     * @param streamName 流名称
+     * @return 流URL信息
+     */
+    private Stream generatePushAndPullStreamUrl(String streamName){
+        Stream stream = new Stream();
+
+        long timestamp = System.currentTimeMillis();
+        // 如/AppName/StreamName
+        String relativeURI = "/"+configPro.getProperty("appName")+"/"+streamName;
+        // URI-timestamp-rand-uid
+        String md5HashPrefix =  relativeURI+"-"+timestamp
+                +"-"+configPro.getProperty("rand")+"-"+configPro.getProperty("uid");
+        //md5hash URI-timestamp-rand-uid-PrivateKey
+        String pushMd5Hash = toMD5(md5HashPrefix + "-"+configPro.getProperty("pushPrivateKey"));
+        String pullMd5Hash = toMD5(md5HashPrefix + "-"+configPro.getProperty("pullPrivateKey"));
+        //auth_key timestamp-rand-uid-md5hash
+        String authKeyPrefix = timestamp +"-"+ configPro.getProperty("rand") +"-"+ configPro.getProperty("uid");
+        String pushAuthKey = authKeyPrefix+"-"+pushMd5Hash;
+        String pullAuthKey = authKeyPrefix+"-"+pullMd5Hash;
+
+        //带有鉴权的推流URL格式：`rtmp://DomainName/AppName/StreamName?auth_key=timestamp-rand-uid-md5hash`
+        String pushStreamUrl = configPro.getProperty("pushProtocol") + "://" + configPro.getProperty("pushDomainName")
+                + relativeURI +"?auth_key="+pushAuthKey;
+        String pullStreamUrl = configPro.getProperty("pullProtocol") + "://" + configPro.getProperty("domainName")
+                + relativeURI +"?auth_key="+pullAuthKey;
+
+        stream.setPushStreamUrl(pushStreamUrl);
+        stream.setPullStreamUrl(pullStreamUrl);
+        return stream;
+    }
+
+
+
 
     /**
      * MD5加密
@@ -79,5 +121,36 @@ public class StreamTest {
         return DigestUtils.md5DigestAsHex(str.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * 流信息
+     */
+    class Stream {
+        private String pushStreamUrl;
+        private String pullStreamUrl;
+
+        public String getPushStreamUrl() {
+            return pushStreamUrl;
+        }
+
+        public void setPushStreamUrl(String pushStreamUrl) {
+            this.pushStreamUrl = pushStreamUrl;
+        }
+
+        public String getPullStreamUrl() {
+            return pullStreamUrl;
+        }
+
+        public void setPullStreamUrl(String pullStreamUrl) {
+            this.pullStreamUrl = pullStreamUrl;
+        }
+
+        @Override
+        public String toString() {
+            return "Stream{" +
+                    "pushStreamUrl='" + pushStreamUrl + '\'' +
+                    ", pullStreamUrl='" + pullStreamUrl + '\'' +
+                    '}';
+        }
+    }
 
 }
