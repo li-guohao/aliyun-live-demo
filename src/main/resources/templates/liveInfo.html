@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Info Page</title>
+</head>
+<body>
+<div align="center">
+    <h2>Live Info Page</h2>
+    <hr>
+
+    <div  th:if="${message} == null">
+        <h3>推流</h3>
+        <p th:text="${streamInfo.pushStreamUrl}"></p>
+        <h3>播流</h3>
+        <table border="1">
+            <tr>
+                <td>协议</td>
+                <td>链接</td>
+            </tr>
+            <tr>
+                <td>RTMP</td>
+                <td th:text="${streamInfo.pullStreamUrlRTMP}"></td>
+            </tr>
+            <tr>
+                <td>FLV</td>
+                <td th:text="${streamInfo.pullStreamUrlFLV}"></td>
+            </tr>
+            <tr>
+                <td>M3U8</td>
+                <td th:text="${streamInfo.pullStreamUrlM3U8}"></td>
+            </tr>
+            <tr>
+                <td>UDP</td>
+                <td th:text="${streamInfo.pullStreamUrlUDP}"></td>
+            </tr>
+        </table>
+
+        <hr>
+        <form method="post" action="/live/play">
+            <input type="text" th:value="${streamInfo.pullStreamUrlM3U8}" name="m3u8url">
+            <input type="submit" value="去播放">
+        </form>
+    </div>
+</div>
+</body>
+</html>
