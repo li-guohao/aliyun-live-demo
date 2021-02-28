@@ -3,7 +3,8 @@
 基于SpringBoot + H2 + Thymeleaf
 
 # 项目说明
-
+需要在当前用户目录下创建对应的文件夹和配置文件`<当前用户目录>/aliyunliveconfig/config.properties`
+参考`resource`目录下的`config.properties`
 
 # 直播推流拉流的坑
 在一开始的时候，我按照[官方文档快速开始部分](https://help.aliyun.com/document_detail/198676.html?spm=a2c4g.11186623.6.573.30865f12Vr10W5),
