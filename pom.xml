@@ -20,6 +20,8 @@
     <properties>
         <java.version>11</java.version>
         <fastjson.version>1.2.25</fastjson.version>
+        <aliyun.sdk.core.version>4.4.6</aliyun.sdk.core.version>
+        <aliyun.sdk.live.version>3.9.0</aliyun.sdk.live.version>
     </properties>
     <!-- 所有依赖 -->
     <dependencies>
@@ -73,6 +75,20 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!--阿里云核心SDK-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>${aliyun.sdk.core.version}</version>
+        </dependency>
+
+        <!--阿里云直播接口SDK-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-live</artifactId>
+            <version>${aliyun.sdk.live.version}</version>
         </dependency>
 
 

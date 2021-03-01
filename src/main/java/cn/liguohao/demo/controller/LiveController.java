@@ -1,15 +1,13 @@
 package cn.liguohao.demo.controller;
 
 import cn.liguohao.demo.entity.StreamInfo;
-import cn.liguohao.demo.util.StreamUtil;
+import cn.liguohao.demo.service.LiveStreamService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**直播
@@ -20,15 +18,13 @@ import java.io.IOException;
 @RequestMapping("/live")
 public class LiveController {
 
+    @Autowired
+    private LiveStreamService liveStreamService;
+
     @PostMapping("/open")
-    public String openLive(Model model, String streamName) {
-        try {
-            StreamInfo streamInfo = StreamUtil.generatePushAndPullStreamUrl(streamName==null?"null":streamName.toString());
-            model.addAttribute("streamInfo",streamInfo);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-            model.addAttribute("message",ioException.getMessage());
-        }
+    public String openLive(Model model,String appName, String streamName) {
+        StreamInfo streamInfo = liveStreamService.generateStreamInfo(appName,streamName);
+        model.addAttribute("streamInfo",streamInfo);
         return "liveInfo";
     }
 

@@ -11,6 +11,10 @@
 - pullPrivateKey: 配置了播流域名的URL鉴权后，在控制台的Key, 一般在视频直播控制台的 域名管理 => 域名配置 => 直播管理 => 访问控制 => URL鉴权 => 主KEY
 - pushDomainName: 推流域名，在视频直播控制台配置的推流域名
 - pushPrivateKey: 推流URL鉴权Key，同播流URL鉴权Key一致
+如果需要调用阿里云SDK相关的接口，还需要将下面的几项配置下
+  - regionId: 访问的地区
+  - accessKeyId: SDK访问权限Key
+  - accessKeySecret: SDK访问权限Key的密钥
 
 
 # 直播推流拉流的坑
