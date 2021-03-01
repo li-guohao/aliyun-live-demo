@@ -41,6 +41,10 @@
             <input type="text" th:value="${streamInfo.pullStreamUrlM3U8}" name="m3u8url">
             <input type="submit" value="去播放">
         </form>
+
+        <hr>
+        <a th:href="@{'/page/play.html?m3u8url='+${streamInfo.pullStreamUrlM3U8}}" target="_blank">播放页面</a>
+
     </div>
 </div>
 </body>
