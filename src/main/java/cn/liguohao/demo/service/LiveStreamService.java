@@ -80,7 +80,8 @@ public class LiveStreamService {
                     +"-"+ rmtpPullMd5Hash;
             // FLV 格式播流
             String flvPullMd5Hash = MD5Util.encrypt(
-                    "/" +appName +"/"+streamName +".flv-"+Long.toString(timestamp)
+                    "/" +appName +"/"+streamName + ".flv"
+                            +"-"+Long.toString(timestamp)
                             +"-"+configProperties.getRand()+"-"+configProperties.getUid()
                             +"-"+configProperties.getPullPrivateKey()
             );
@@ -90,7 +91,8 @@ public class LiveStreamService {
                     +"-"+ flvPullMd5Hash;
             // M3U8格式播流
             String m3u8PullMd5Hash = MD5Util.encrypt(
-                    "/" +appName +"/"+streamName +".m3u8-"+Long.toString(timestamp)
+                    "/" +appName +"/"+streamName + ".m3u8"
+                            +"-"+Long.toString(timestamp)
                             +"-"+configProperties.getRand()+"-"+configProperties.getUid()
                             +"-"+configProperties.getPullPrivateKey()
             );
@@ -100,7 +102,8 @@ public class LiveStreamService {
                     +"-"+ m3u8PullMd5Hash;
             // udp格式
             String udpPullMd5Hash = MD5Util.encrypt(
-                    "/" +appName +"/"+streamName +"-"+Long.toString(timestamp)
+                    "/" +appName +"/"+streamName
+                            +"-"+Long.toString(timestamp)
                             +"-"+configProperties.getRand()
                             +"-"+configProperties.getUid()
                             +"-"+configProperties.getPullPrivateKey()
