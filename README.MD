@@ -5,6 +5,7 @@
 # 项目说明
 需要在当前用户目录下创建对应的文件夹和配置文件`<当前用户目录>/aliyunliveconfig/config.properties`
 参考`resource`目录下的`config.properties`
+测试的话，建议关闭播流URL的鉴权
 其中运行项目需要填写的几项：
 - domainName: 播流域名，在视频直播控制台配置的播流域名
 - pullPrivateKey: 配置了播流域名的URL鉴权后，在控制台的Key, 一般在视频直播控制台的 域名管理 => 域名配置 => 直播管理 => 访问控制 => URL鉴权 => 主KEY

@@ -65,23 +65,23 @@ public class StreamUtil {
                 + relativeURI +"?auth_key="+pushAuthKey;
         //播流地址拼接规则 播流域名+AppName（应用）+StreamName（直播流）+鉴权串
         // 构建不同格式播流地址
-        String pullStreamUrlRTMP = "rtmp://" + configPro.getProperty("domainName")
-                + relativeURI +"?auth_key="+pullAuthKey;
-        String pullStreamUrlFLV = "http://" + configPro.getProperty("domainName")
-                + relativeURI + ".flv?auth_key="+pullAuthKey;
-        String pullStreamUrlM3U8 = "http://" + configPro.getProperty("domainName")
-                + relativeURI + ".m3u8?auth_key="+pullAuthKey;
-        String pullStreamUrlUDP = "artc://" + configPro.getProperty("domainName")
-                + relativeURI + "?auth_key="+pullAuthKey;
-
 //        String pullStreamUrlRTMP = "rtmp://" + configPro.getProperty("domainName")
-//                + relativeURI ;
+//                + relativeURI +"?auth_key="+pullAuthKey;
 //        String pullStreamUrlFLV = "http://" + configPro.getProperty("domainName")
-//                + relativeURI + ".flv";
+//                + relativeURI + ".flv?auth_key="+pullAuthKey;
 //        String pullStreamUrlM3U8 = "http://" + configPro.getProperty("domainName")
-//                + relativeURI + ".m3u8";
+//                + relativeURI + ".m3u8?auth_key="+pullAuthKey;
 //        String pullStreamUrlUDP = "artc://" + configPro.getProperty("domainName")
-//                + relativeURI ;
+//                + relativeURI + "?auth_key="+pullAuthKey;
+
+        String pullStreamUrlRTMP = "rtmp://" + configPro.getProperty("domainName")
+                + relativeURI ;
+        String pullStreamUrlFLV = "http://" + configPro.getProperty("domainName")
+                + relativeURI + ".flv";
+        String pullStreamUrlM3U8 = "http://" + configPro.getProperty("domainName")
+                + relativeURI + ".m3u8";
+        String pullStreamUrlUDP = "artc://" + configPro.getProperty("domainName")
+                + relativeURI ;
 
 
         stream.setPushStreamUrl(pushStreamUrl);
