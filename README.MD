@@ -5,6 +5,12 @@
 # 项目说明
 需要在当前用户目录下创建对应的文件夹和配置文件`<当前用户目录>/aliyunliveconfig/config.properties`
 参考`resource`目录下的`config.properties`
+其中运行项目需要填写的几项：
+- domainName: 播流域名，在视频直播控制台配置的播流域名
+- pullPrivateKey: 配置了播流域名的URL鉴权后，在控制台的Key, 一般在视频直播控制台的 域名管理 => 域名配置 => 直播管理 => 访问控制 => URL鉴权 => 主KEY
+- pushDomainName: 推流域名，在视频直播控制台配置的推流域名
+- pushPrivateKey: 推流URL鉴权Key，同播流URL鉴权Key一致
+
 
 # 直播推流拉流的坑
 在一开始的时候，我按照[官方文档快速开始部分](https://help.aliyun.com/document_detail/198676.html?spm=a2c4g.11186623.6.573.30865f12Vr10W5),
