@@ -40,8 +40,10 @@ public class LiveStreamService {
         if(!StringUtils.isEmpty(configProperties.getPushPrivateKey())){
             //md5hash URI-timestamp-rand-uid-PrivateKey 播流的URI这里不同格式不同
             String pushMd5Hash = MD5Util.encrypt(
-                    "/" +appName +"/"+streamName +"-"+Long.toString(timestamp)
-                            +"-"+configProperties.getRand()+"-"+configProperties.getUid()
+                    "/" +appName +"/"+streamName
+                            +"-"+Long.toString(timestamp)
+                            +"-"+configProperties.getRand()
+                            +"-"+configProperties.getUid()
                             +"-"+configProperties.getPushPrivateKey()
             );
             //auth_key timestamp-rand-uid-md5hash
@@ -66,8 +68,10 @@ public class LiveStreamService {
             //md5hash URI-timestamp-rand-uid-PrivateKey 播流的URI这里不同格式不同
             // RMTP格式播流
             String rmtpPullMd5Hash = MD5Util.encrypt(
-                    "/" +appName +"/"+streamName +"-"+Long.toString(timestamp)
-                            +"-"+configProperties.getRand()+"-"+configProperties.getUid()
+                    "/" +appName +"/"+streamName
+                            +"-"+Long.toString(timestamp)
+                            +"-"+configProperties.getRand()
+                            +"-"+configProperties.getUid()
                             +"-"+configProperties.getPullPrivateKey()
             );
             pullStreamUrlRTMP += "?auth_key="+Long.toString(timestamp)
@@ -80,7 +84,7 @@ public class LiveStreamService {
                             +"-"+configProperties.getRand()+"-"+configProperties.getUid()
                             +"-"+configProperties.getPullPrivateKey()
             );
-            pullStreamUrlFLV += ".flv?auth_key="+Long.toString(timestamp)
+            pullStreamUrlFLV += "?auth_key="+Long.toString(timestamp)
                     +"-"+ configProperties.getRand()
                     +"-"+ configProperties.getUid()
                     +"-"+ flvPullMd5Hash;
@@ -90,14 +94,15 @@ public class LiveStreamService {
                             +"-"+configProperties.getRand()+"-"+configProperties.getUid()
                             +"-"+configProperties.getPullPrivateKey()
             );
-            pullStreamUrlM3U8 += ".m3u8?auth_key="+Long.toString(timestamp)
+            pullStreamUrlM3U8 += "?auth_key="+Long.toString(timestamp)
                     +"-"+ configProperties.getRand()
                     +"-"+ configProperties.getUid()
                     +"-"+ m3u8PullMd5Hash;
             // udp格式
             String udpPullMd5Hash = MD5Util.encrypt(
                     "/" +appName +"/"+streamName +"-"+Long.toString(timestamp)
-                            +"-"+configProperties.getRand()+"-"+configProperties.getUid()
+                            +"-"+configProperties.getRand()
+                            +"-"+configProperties.getUid()
                             +"-"+configProperties.getPullPrivateKey()
             );
             pullStreamUrlUDP += "?auth_key="+Long.toString(timestamp)
